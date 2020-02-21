@@ -1,0 +1,68 @@
+#!/bin/bash
+case $1 in
+	amd64)
+		shift
+		$*
+		;;
+	i[3-6]86)
+		shift
+		CR=i686-linux-gnu-
+		GOOS=linux GOARCH=386 CGO_ENABLED=1 CC=${CR}gcc AR=${CR}ar CXX=${CR}g++ GOPATH=/opt/go $*
+		;;
+	amd64p32)
+		shift
+		CR=x86_64-linux-gnux32-
+		GOOS=linux GOARCH=amd64p32 CGO_ENABLED=1 CC=${CR}gcc AR=${CR}ar CXX=${CR}g++ GOPATH=/opt/go $*
+		;;
+	arm64)
+		shift
+		CR=aarch64-linux-gnu-
+		GOOS=linux GOARCH=arm64 CGO_ENABLED=1 CC=${CR}gcc AR=${CR}ar CXX=${CR}g++ GOPATH=/opt/go $*
+		;;
+	arm)
+		shift
+		CR=arm-linux-gnueabihf-
+		GOOS=linux GOARCH=arm CGO_ENABLED=1 CC=${CR}gcc AR=${CR}ar CXX=${CR}g++ GOPATH=/opt/go $*
+		;;
+	mips)
+		shift
+		CR=mips-linux-gnu-
+		GOOS=linux GOARCH=mips CGO_ENABLED=1 CC=${CR}gcc AR=${CR}ar CXX=${CR}g++ GOPATH=/opt/go $*
+		;;
+	mips64)
+		shift
+		CR=mips64-linux-gnuabi64-
+		GOOS=linux GOARCH=mips64 CGO_ENABLED=1 CC=${CR}gcc AR=${CR}ar CXX=${CR}g++ GOPATH=/opt/go $*
+		;;
+	mips64le)
+		shift
+		CR=mips64el-linux-gnuabi64-
+		GOOS=linux GOARCH=mips64le CGO_ENABLED=1 CC=${CR}gcc AR=${CR}ar CXX=${CR}g++ GOPATH=/opt/go $*
+		;;
+	mipsle)
+		shift
+		CR=mipsel-linux-gnu-
+		GOOS=linux GOARCH=mipsle CGO_ENABLED=1 CC=${CR}gcc AR=${CR}ar CXX=${CR}g++ GOPATH=/opt/go $*
+		;;
+	ppc64)
+		shift
+		CR=powerpc64-linux-gnu-
+		GOOS=linux GOARCH=ppc64 CGO_ENABLED=1 CC=${CR}gcc AR=${CR}ar CXX=${CR}g++ GOPATH=/opt/go $*
+		;;
+	ppc64le)
+		shift
+		CR=powerpc64le-linux-gnu-
+		GOOS=linux GOARCH=ppc64le CGO_ENABLED=1 CC=${CR}gcc AR=${CR}ar CXX=${CR}g++ GOPATH=/opt/go $*
+		;;
+	s390x)
+		shift
+		CR=s390x-linux-gnu-
+		GOOS=linux GOARCH=s390x CGO_ENABLED=1 CC=${CR}gcc AR=${CR}ar CXX=${CR}g++ GOPATH=/opt/go $*
+		;;
+	go)
+		$*
+		;;
+	*)
+		echo "指定架构不存在 仅支持: amd64 i386 amd64p32 arm64 arm mips mips64 mipsle mips64le ppc64 ppc64le s390"
+		;;
+esac
